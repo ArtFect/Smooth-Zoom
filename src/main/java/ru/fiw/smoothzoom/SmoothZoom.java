@@ -32,6 +32,7 @@ public class SmoothZoom {
     private long systemTime = getSystemTime();
     private Minecraft mc;
     private float origSens;
+    private boolean inZoom = false;
 
     private float sens = 0;
     private float fov = 0;
@@ -72,6 +73,9 @@ public class SmoothZoom {
 
     @SubscribeEvent
     public void onFOVModifier(EntityViewRenderEvent.FOVModifier e) {
+        if (!inZoom) {
+            return;
+        }
         if (e.getEntity().equals(mc.player)) {
             if (!isHandFov(Thread.currentThread().getStackTrace())) {
                 if (smooth) {
@@ -141,6 +145,7 @@ public class SmoothZoom {
             if (newFov >= mc.gameSettings.fovSetting) {
                 resetOpt();
             } else {
+                inZoom = true;
                 this.fov = newFov;
                 if (stab) {
                     float newSens = origSens * (newFov / mc.gameSettings.fovSetting);
@@ -180,6 +185,7 @@ public class SmoothZoom {
 
         sens = mc.gameSettings.mouseSensitivity;
         fov = mc.gameSettings.fovSetting;
+        inZoom = false;
     }
 
     private static long getSystemTime() {
