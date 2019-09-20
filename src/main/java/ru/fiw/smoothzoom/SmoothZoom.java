@@ -50,7 +50,7 @@ public class SmoothZoom {
     public void preInit(FMLPreInitializationEvent event) {
         MinecraftForge.EVENT_BUS.register(this);
         String catergory = "Smooth Zoom";
-        keyBindings[0] = new KeyBinding("Zoom -", Keyboard.KEY_F, catergory);
+        keyBindings[0] = new KeyBinding("Zoom -", Keyboard.KEY_V, catergory);
         keyBindings[1] = new KeyBinding("Zoom +", Keyboard.KEY_R, catergory);
         keyBindings[2] = new KeyBinding("Reset zoom", Keyboard.KEY_LMENU, catergory);
         for (int i = 0; i < keyBindings.length; ++i) {
